@@ -30,12 +30,68 @@ if (!rootElement) {
 // Get the redirect URI - use window.location.origin for Create React App
 const redirectUri = window.location.origin;
 
-// Log the redirect URI for debugging
-console.log('Auth0 Redirect URI:', redirectUri);
-console.log('Make sure this URL is added to your Auth0 Application Settings:');
-console.log('- Allowed Callback URLs');
-console.log('- Allowed Logout URLs');
-console.log('- Allowed Web Origins');
+// Log Auth0 configuration for debugging
+console.log('🔐 Auth0 Configuration:');
+console.log('═══════════════════════════════════════════════════════');
+console.log('Domain:', domain);
+console.log('Client ID:', clientId);
+console.log('Redirect URI:', redirectUri);
+console.log('');
+console.log('⚠️  CRITICAL: Verify these Auth0 Application Settings:');
+console.log('   1. Application Type: MUST be "Single Page Application"');
+console.log('   2. Token Endpoint Authentication Method: MUST be "None"');
+console.log('   3. Allowed Callback URLs:', redirectUri);
+console.log('   4. Allowed Logout URLs:', redirectUri);
+console.log('   5. Allowed Web Origins:', redirectUri);
+console.log('');
+console.log('📋 Quick Access:');
+console.log('   Auth0 Dashboard: https://manage.auth0.com/dashboard/');
+console.log('   → Navigate to: Applications → Your App → Settings');
+console.log('   Quick Fix Guide: See QUICK_FIX_401.md in project root');
+console.log('   Full Guide: See AUTH0_SETUP_VERIFICATION.md in project root');
+console.log('');
+console.log('💡 Tip: Run checkAuth0Config() in console for detailed checklist');
+console.log('═══════════════════════════════════════════════════════');
+
+// Helper function for console debugging
+window.checkAuth0Config = function() {
+  console.log('\n🔍 Auth0 Configuration Verification Checklist\n');
+  console.log('Current Configuration:');
+  console.log('  Domain:', domain);
+  console.log('  Client ID:', clientId);
+  console.log('  Redirect URI:', redirectUri);
+  console.log('\n📋 Verify in Auth0 Dashboard:\n');
+  console.log('1. Application Type');
+  console.log('   ✅ Must be: "Single Page Application"');
+  console.log('   ❌ NOT: "Regular Web Application" or "Native"');
+  console.log('   📍 Location: Settings → Application Type (top of page)\n');
+  
+  console.log('2. Token Endpoint Authentication Method');
+  console.log('   ✅ Must be: "None"');
+  console.log('   ❌ NOT: "Post" or "Client Secret"');
+  console.log('   📍 Location: Settings → Advanced Settings → Token Endpoint Authentication Method\n');
+  
+  console.log('3. Allowed Web Origins');
+  console.log('   ✅ Must include:', redirectUri);
+  console.log('   ⚠️  This is CRITICAL for CORS - missing this causes 401 errors');
+  console.log('   📍 Location: Settings → Application URIs → Allowed Web Origins\n');
+  
+  console.log('4. Allowed Callback URLs');
+  console.log('   ✅ Must include:', redirectUri);
+  console.log('   📍 Location: Settings → Application URIs → Allowed Callback URLs\n');
+  
+  console.log('5. Allowed Logout URLs');
+  console.log('   ✅ Must include:', redirectUri);
+  console.log('   📍 Location: Settings → Application URIs → Allowed Logout URLs\n');
+  
+  console.log('6. Verify .env matches Auth0 Dashboard');
+  console.log('   ✅ Domain in .env:', domain);
+  console.log('   ✅ Client ID in .env:', clientId);
+  console.log('   📍 Location: Settings → Basic Information\n');
+  
+  console.log('🔗 Auth0 Dashboard: https://manage.auth0.com/dashboard/');
+  console.log('   → Applications → Your App → Settings\n');
+};
 
 const root = ReactDOM.createRoot(rootElement);
 root.render(
